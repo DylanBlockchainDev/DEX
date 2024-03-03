@@ -91,9 +91,11 @@ function Swap(props) {
   // }
 
   async function fetchPrices(one, two) {
-    // Adjust the URL to point to your Firebase Functions emulator
-    const functionUrl = `http://localhost:5001/decentralized-exchange-acf3a/us-central1/<function-name>`;
-    const res = await axios.get(functionUrl, {
+    // Replace this URL with the actual Firebase Functions URL for your /tokenPrice endpoint
+    const firebaseFunctionsUrl =
+      "https://us-central1-decentralized-exchange-acf3a.cloudfunctions.net/app";
+
+    const res = await axios.get(`${firebaseFunctionsUrl}/tokenPrice`, {
       params: { addressOne: one, addressTwo: two },
     });
 
