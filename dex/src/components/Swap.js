@@ -82,8 +82,18 @@ function Swap(props) {
     setIsOpen(false);
   }
 
+  // async function fetchPrices(one, two) {
+  //   const res = await axios.get(`http://localhost:3001/tokenPrice`, {
+  //     params: { addressOne: one, addressTwo: two },
+  //   });
+
+  //   setPrices(res.data);
+  // }
+
   async function fetchPrices(one, two) {
-    const res = await axios.get(`http://localhost:3001/tokenPrice`, {
+    // Adjust the URL to point to your Firebase Functions emulator
+    const functionUrl = `http://localhost:5001/decentralized-exchange-acf3a/us-central1/<function-name>`;
+    const res = await axios.get(functionUrl, {
       params: { addressOne: one, addressTwo: two },
     });
 
@@ -219,24 +229,25 @@ function Swap(props) {
             disabled={!prices}
           />
           <Input placeholder="0" value={tokenTwoAmount} disabled={true} />
-
           <div className="switchButton" onClick={switchTokens}>
             <ArrowDownOutlined className="switchArrow" />
           </div>
-
           <div className="assetOne" onClick={() => openModal(1)}>
             <img src={tokenOne.img} alt="assetOneLogo" className="assetLogo" />
             {tokenOne.ticker}
             <DownOutlined />
           </div>
-
           <div className="assetTwo" onClick={() => openModal(2)}>
             <img src={tokenTwo.img} alt="assetOneLogo" className="assetLogo" />
             {tokenTwo.ticker}
             <DownOutlined />
           </div>
         </div>
-        <div className="swapButton" disabled={!tokenOneAmount || !isConnected}>
+        <div
+          className="swapButton"
+          disabled={!tokenOneAmount || !isConnected}
+          onClick={fetchDexSwap}
+        >
           Swap
         </div>
       </div>
