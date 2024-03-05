@@ -2,10 +2,11 @@ const express = require("express");
 const Moralis = require("moralis").default;
 const app = express();
 const cors = require("cors");
+app.use(cors());
+
 require("dotenv").config();
 // const port = 3001;
 
-app.use(cors());
 app.use(express.json());
 
 app.get("/tokenPrice", async (req, res) => {
