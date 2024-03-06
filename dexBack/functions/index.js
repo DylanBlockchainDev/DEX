@@ -1,12 +1,7 @@
 const functions = require("firebase-functions");
-const express = require("express");
-const cors = require("cors");
-// const app = express();
-const app = require("./index.js"); // Import the Express app
+const expressApp = require("../index"); // Adjust the path to where your Express app is exported
 
-app.use(cors());
+// Create and Deploy Your First Cloud Functions
+// https://firebase.google.com/docs/functions/write-firebase-functions
 
-// Import your Express app setup here
-// require("../index.js");
-
-exports.app = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(expressApp);
