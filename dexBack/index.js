@@ -1,23 +1,14 @@
 const express = require("express");
+const app = express();
 const Moralis = require("moralis").default;
 const cors = require("cors");
 
-const app = express();
 app.use(cors());
 
-// require("dotenv").config();
+require("dotenv").config();
 // const port = 3001;
 
 app.use(express.json());
-
-// changed made here
-function initializeMoralis(moralisKey) {
-  Moralis.start({
-    apiKey: moralisKey,
-  }).then(() => {
-    console.log(`Moralis initialized`);
-  });
-}
 
 app.get("/tokenPrice", async (req, res) => {
   const { query } = req;
@@ -39,14 +30,10 @@ app.get("/tokenPrice", async (req, res) => {
   return res.status(200).json(usdPrices);
 });
 
-// change made here - this was the og code
-// Moralis.start({
-//   apiKey: process.env.MORALIS_KEY,
-// }).then(() => {
-//   console.log(`Moralis initialized`);
-// });
+Moralis.start({
+  apiKey: process.env.MORALIS_KEY,
+}).then(() => {
+  console.log(`Moralis initialized`);
+});
 
 module.exports = app;
-
-// Export the app as a function that accepts the moralisKey  // XXXXXXXXXXX
-// module.exports = initializeMoralis;
